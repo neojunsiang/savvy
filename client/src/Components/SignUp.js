@@ -22,7 +22,7 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(resJson => {
-                console.log(resJson);
+                // console.log(resJson);
                 history.push("/welcome")
             })
             .catch(error => console.error({ Error: error }))
