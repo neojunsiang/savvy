@@ -2,8 +2,10 @@
 require("dotenv-safe").config()
 const express = require("express");
 const session = require("express-session");
-const app = express();
 const mongoose = require("mongoose");
+const usersController = require("./controllers/users_controller.js");
+const sessionsController = require("./controllers/sessions_controller.js");
+const app = express();
 
 // MONGOOSE CONNECTION
 const MONGO_URI = process.env.MONGO_URI
@@ -29,6 +31,12 @@ app.use(
         saveUninitialized: false,
     })
 );
+app.use("/users", usersController);
+app.use("/sessions", sessionsController);
+
+app.get("/", (req, res) => {
+    res.send("Welcome page");
+})
 
 // PORT LISTENING
 const PORT = process.env.PORT;
