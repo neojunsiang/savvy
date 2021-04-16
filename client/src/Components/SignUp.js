@@ -4,39 +4,34 @@ import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
 import { useHistory } from 'react-router';
 
-const Login = ({ setUser }) => {
+const SignUp = () => {
+    const history = useHistory()
 
-    const history = useHistory();
-
-    const handleLogin = (event) => {
+    const handleSignUp = (event) => {
         event.preventDefault();
         const username = event.target.username.value;
         const password = event.target.password.value;
-        const user = { username, password }; // {username: event.target.username.value, password: event.target.password.value }
-        console.log(user);
-        fetch("/sessions", {
+        const newUser = { username, password }; // {username: event.target.username.value, password: event.target.password.value }
+        console.log(newUser);
+        fetch("/users", {
             method: "POST",
-            body: JSON.stringify(user),
+            body: JSON.stringify(newUser),
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         })
             .then(res => res.json())
             .then(resJson => {
-                console.log("resJson", resJson)
-                console.log("resJson id ", resJson._id)
-                if (resJson._id) {
-                    setUser(user);
-                    history.push("/all")
-                }
+                console.log(resJson);
+                history.push("/welcome")
             })
             .catch(error => console.error({ Error: error }))
     }
 
     return (
         <>
-            <h1>Welcome to Login</h1>
-            <Form onSubmit={handleLogin}>
+            <h1>Register New User</h1>
+            <Form onSubmit={handleSignUp}>
                 <Form.Group as={Form.Row} controlId="username">
                     <Form.Label column sm={1}>Username</Form.Label>
                     <Col sm={3}>
@@ -50,15 +45,11 @@ const Login = ({ setUser }) => {
                     </Col>
                 </Form.Group>
                 <Button type="submit" size="sm" >
-                    Login
+                    Register
                 </Button >
             </Form>
-            <br />
-            <Button variant="primary" href="/signup" size="sm">Getting Started</Button>
-            <br />
-            <a href="/demo">Not sure how it works? Click here for demo</a>
         </>
     )
 }
 
-export default Login
+export default SignUp;
