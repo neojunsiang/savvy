@@ -1,7 +1,14 @@
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
-import Login from "./Components/Login";
+import { useState } from "react"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './Components/Login';
+import SignUp from './Components/SignUp'
+
 
 function App() {
+
+  const [user, setUser] = useState(null);
+
   return (
     <Router>
       <nav>
@@ -17,9 +24,17 @@ function App() {
       </nav>
       <hr />
       <Switch>
-        <Route path="/welcome"></Route>
-        <Route path="/signup"></Route>
-        <Route path="/demo"></Route>
+
+        <Route path="/welcome">
+          <Login setUser={setUser} />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="/demo">
+
+        </Route>
+
       </Switch>
     </Router>
   );
