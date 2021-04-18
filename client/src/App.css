@@ -30,6 +30,11 @@
   float: right;
 }
 
+.bank__summary {
+  display: flex;
+  justify-content: space-around;
+}
+
 /* Default CSS */
 .App {
   text-align: center;

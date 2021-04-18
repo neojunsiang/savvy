@@ -3,9 +3,9 @@ import { useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp'
-import MainPage from "./Components/MainPage";
-import CreateBankPage from "./Components/CreateBankPage";
-
+import MainPage from "./Pages/MainPage";
+import CreateBankPage from "./Pages/CreateBankPage";
+import ShowBankPage from "./Pages/ShowBankPage";
 
 function App() {
 
@@ -33,11 +33,14 @@ function App() {
           <SignUp />
         </Route>
         <Route path="/demo"></Route>
-        <Route path="/main">
-          <MainPage />
-        </Route>
         <Route path="/create-bank">
           <CreateBankPage />
+        </Route>
+        <Route path="/main/:bankName/:nickName">
+          <ShowBankPage />
+        </Route>
+        <Route path="/main">
+          <MainPage />
         </Route>
       </Switch>
     </Router>

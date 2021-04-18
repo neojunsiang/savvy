@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 import { Layout, Menu } from "antd";
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from "@ant-design/icons";
@@ -15,7 +16,10 @@ const Sidebar = () => {
         defaultOpenKeys={["sub0"]}
         style={{ height: "100%", borderRight: 0 }}
       >
-        <Menu.Item key="sub0" icon={<LaptopOutlined />}>Main</Menu.Item>
+        <Menu.Item key="sub0" icon={<LaptopOutlined />}>
+          <Link to="/main">Main</Link>
+        </Menu.Item>
+
         <SubMenu key="sub1" icon={<UserOutlined />} title="DBS">
           <Menu.Item key="1">option1</Menu.Item>
           <Menu.Item key="2">option2</Menu.Item>

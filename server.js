@@ -5,6 +5,7 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const usersController = require("./controllers/users_controller.js");
 const sessionsController = require("./controllers/sessions_controller.js");
+const transactionsController = require("./controllers/transactions.js");
 const app = express();
 
 // MONGOOSE CONNECTION
@@ -33,6 +34,7 @@ app.use(
 );
 app.use("/users", usersController);
 app.use("/sessions", sessionsController);
+app.use("/transactions", transactionsController);
 
 app.get("/", (req, res) => {
     res.send("Welcome page");

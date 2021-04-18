@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import "../App.css";
-import { Layout, Breadcrumb } from "antd";
+import { Breadcrumb } from "antd";
 
-const Path = () => {
-    return (    
-        <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Main</Breadcrumb.Item>
-            <Breadcrumb.Item>DBS</Breadcrumb.Item>
-            <Breadcrumb.Item>Account 1</Breadcrumb.Item>
-        </Breadcrumb>
+const Path = ({ bankName, nickName }) => {
+    return (
+      <Breadcrumb style={{ margin: "16px 0" }}>
+        <Breadcrumb.Item><Link to="/main">Main</Link></Breadcrumb.Item>
+        <Breadcrumb.Item>{bankName}</Breadcrumb.Item>
+        <Breadcrumb.Item>{nickName}</Breadcrumb.Item>
+      </Breadcrumb>
     );
 }
 
