@@ -9,7 +9,7 @@ const transactionSchema = Schema({
   category: { type: String, enum: categories, required: true },
   amount: { type: mongoose.Types.Decimal128, required: true },
   description: String,
-  date: { type: String, required: true }
+  date: { type: String, required: true },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);

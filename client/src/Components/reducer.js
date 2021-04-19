@@ -1,5 +1,5 @@
 export const initialState = {
-  allAccounts: [],
+  allAccounts: []
 };
 
 const reducer = (state, action) => {
