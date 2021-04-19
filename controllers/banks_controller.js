@@ -11,8 +11,12 @@ banks.get("/", (req, res) => {
 
 // create
 banks.post("/", (req, res) => {
-    console.log(req.session.currentUser);
-    Bank.create(req.body, (error, createdBank) => {
+    const userData = {
+        ...req.body,
+        loginUser: req.session.currentUser._id
+    }
+    console.log("User", userData);
+    Bank.create(userData, (error, createdBank) => {
         if (error) {
             res.status(400).json({ error: error.message })
         } else {
