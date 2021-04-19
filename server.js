@@ -3,9 +3,11 @@ require("dotenv-safe").config()
 const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const app = express();
 const usersController = require("./controllers/users_controller.js");
 const sessionsController = require("./controllers/sessions_controller.js");
-const app = express();
+const banksController = require("./controllers/banks_controller");
+const seedController = require("./controllers/seed_controller");
 
 // MONGOOSE CONNECTION
 const MONGO_URI = process.env.MONGO_URI
@@ -17,6 +19,7 @@ mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
+    useCreateIndex: true
 });
 mongoose.connection.once("open", () => {
     console.log("connected to mongoose...");
@@ -33,6 +36,8 @@ app.use(
 );
 app.use("/users", usersController);
 app.use("/sessions", sessionsController);
+app.use("/banks", banksController);
+app.use("/seed", seedController);
 
 app.get("/", (req, res) => {
     res.send("Welcome page");

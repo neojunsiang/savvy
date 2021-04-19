@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
@@ -7,12 +7,14 @@ import { useHistory } from 'react-router';
 const SignUp = () => {
     const history = useHistory()
 
+
+
     const handleSignUp = (event) => {
         event.preventDefault();
         const username = event.target.username.value;
         const password = event.target.password.value;
         const newUser = { username, password }; // {username: event.target.username.value, password: event.target.password.value }
-        console.log(newUser);
+        console.log("newUser", newUser);
         fetch("/users", {
             method: "POST",
             body: JSON.stringify(newUser),
@@ -22,8 +24,14 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(resJson => {
-                // console.log(resJson);
-                history.push("/welcome")
+                console.log("resJson", resJson);
+                console.log("msg", resJson.msg);
+                // setIsRegistered(!isRegistered);
+                // setMessage(resJson);
+                // console.log("state message", message);
+                // console.log("state message", message.msg);
+                // console.log("state message", message.status);
+                // history.push("/welcome")
             })
             .catch(error => console.error({ Error: error }))
     }
@@ -48,6 +56,8 @@ const SignUp = () => {
                     Register
                 </Button >
             </Form>
+            {/* {message.status ? message.msg : null}  */}
+            {/* {message.status ? message.msg : null} */}
         </>
     )
 }
