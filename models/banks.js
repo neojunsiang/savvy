@@ -7,7 +7,7 @@ const bankSchema = new Schema(
     {
         bankName: { type: String, enum: listOfBanks, required: true },
         balance: { type: mongoose.Types.Decimal128, required: true, default: 0 },
-        nickName: { type: String }
+        nickName: { type: String },
     }
 )
 
