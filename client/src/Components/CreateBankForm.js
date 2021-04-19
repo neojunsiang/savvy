@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import "../App.css";
-import { Layout, Form, Input, Button, Select } from "antd";
+import { Layout, Form, Input, Button, Select, InputNumber } from "antd";
 
 const { Content } = Layout;
 const { Option } = Select;
 
 const layout = {
-  labelCol: {span: 8},
-  wrapperCol: {span: 8},
+  labelCol: { span: 8 },
+  wrapperCol: { span: 8 },
 };
 
 const tailLayout = {
-    wrapperCol: {
+  wrapperCol: {
     offset: 8,
     span: 16,
   },
@@ -27,16 +27,27 @@ const CreateBankForm = () => {
   // If user fills in all fields in the form
   const onFinish = (values) => {
     console.log("Success:", values);
+    // console.log("Success:", typeof values.balance);
     setBank(values);
-    dispatch({
-      type: "CREATE_AN_ACCOUNT",
-      account: {
-        bankName: values.bankName,
-        nickName: values.nickName,
-        balance: values.balance
+    fetch("/banks", {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json",
       },
-    });
-    // history.push("/main/" + values.bankName + "/" + values.nickName);
+    })
+      .then((res) => res.json())
+      .then((resjson) => {
+        dispatch({
+          type: "CREATE_AN_ACCOUNT",
+          account: {
+            bankName: values.bankName,
+            nickName: values.nickName,
+            balance: values.balance,
+          },
+        });
+      })
+      .catch((error) => console.error({ Error: error }));
     history.push("/main");
   };
 
@@ -137,8 +148,29 @@ const CreateBankForm = () => {
             },
           ]}
         >
-          <Input placeholder="$100" />
+          <InputNumber
+            style={{
+              width: 200,
+            }}
+            placeholder="100"
+            min="0"
+            step="0.01"
+            onChange={onChange}
+          />
         </Form.Item>
+
+        {/* <Form.Item
+          label="Starting Balance"
+          name="balance"
+          rules={[
+            {
+              required: true,
+              message: "Please input a starting balance",
+            },
+          ]}
+        >
+          <Input type="" placeholder="$100" />
+        </Form.Item> */}
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             Create Bank Account
@@ -147,6 +179,6 @@ const CreateBankForm = () => {
       </Form>
     </Content>
   );
-}
+};
 
 export default CreateBankForm;
