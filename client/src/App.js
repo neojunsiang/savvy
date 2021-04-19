@@ -8,6 +8,7 @@ import CreateBankPage from "./Pages/CreateBankPage";
 import ShowBankPage from "./Pages/ShowBankPage";
 import NewTransaction from "./Components/NewTransaction";
 import EditTransaction from "./Components/EditTransaction";
+import CreateTransactionPage from "./Pages/CreateTransactionPage";
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
         <Route path="/demo"></Route>
         <Route path="/create-bank">
           <CreateBankPage />
+        </Route>
+        <Route path="/main/:bankName/:nickName/create-transaction">
+          <CreateTransactionPage />
         </Route>
         <Route path="/main/:bankName/:nickName">
           <ShowBankPage />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import "../App.css";
 import { Layout } from "antd";
 import { Card } from "antd";
@@ -15,14 +16,14 @@ const ShowBankSummary = ({ bankName, nickName, balance }) => {
         <Content
             className="site-layout-background"
             style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 600,
+                padding: 24,
+                margin: 0,
+                minHeight: 600,
             }}
         >
             <div className="bank__summary">
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Balance" /><br/>${balance}
+                    <Meta title="Balance" /><br />${balance}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px" }}>
                     <Meta title="Income" />
@@ -33,6 +34,7 @@ const ShowBankSummary = ({ bankName, nickName, balance }) => {
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px" }}>
                     <Meta title="Transactions" />
                 </Card>
+                <Link to="/main/:bankName/:nickName/create-transaction" ><button>Create a Transaction</button></Link>
             </div>
         </Content>
     )

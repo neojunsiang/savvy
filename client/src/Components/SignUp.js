@@ -31,7 +31,7 @@ const SignUp = () => {
                 // console.log("state message", message);
                 // console.log("state message", message.msg);
                 // console.log("state message", message.status);
-                // history.push("/welcome")
+                history.push("/welcome")
             })
             .catch(error => console.error({ Error: error }))
     }

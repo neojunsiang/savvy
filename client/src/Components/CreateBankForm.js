@@ -38,12 +38,14 @@ const CreateBankForm = () => {
     })
       .then((res) => res.json())
       .then((resjson) => {
+        console.log("resJson", resjson);
         dispatch({
           type: "CREATE_AN_ACCOUNT",
           account: {
             bankName: values.bankName,
             nickName: values.nickName,
             balance: values.balance,
+            bankId: resjson._id
           },
         });
       })

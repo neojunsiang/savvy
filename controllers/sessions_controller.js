@@ -17,20 +17,20 @@ sessions.post("/", (req, res) => {
         if (err) {
             console.log(err);
             res.send({ msg: "Problem with database" });
-        // foundUser is undefined/null
+            // foundUser is undefined/null
         } else if (!foundUser) {
             console.log("User could not be found");
             res.send({ msg: "User could not be found" });
-        // User is found, now check if password matches
+            // User is found, now check if password matches
         } else {
             // Password matches
             if (bcrypt.compareSync(req.body.password, foundUser.password)) {
                 req.session.currentUser = foundUser;
                 res.send(foundUser);
-            // Password does not match
+                // Password does not match
             } else {
                 console.log("You entered an incorrect password");
-                res.send({msg: "You entered an incorrect password"});
+                res.send({ msg: "You entered an incorrect password" });
             }
         }
     });
@@ -40,7 +40,7 @@ sessions.post("/", (req, res) => {
 sessions.delete("/", (req, res) => {
     req.session.destroy(() => {
         console.log("You have logged out successfully");
-        res.send({msg: "You have logged out successfully"});
+        res.send({ msg: "You have logged out successfully" });
     });
 });
 
