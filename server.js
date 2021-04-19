@@ -6,8 +6,10 @@ const mongoose = require("mongoose");
 const app = express();
 const usersController = require("./controllers/users_controller.js");
 const sessionsController = require("./controllers/sessions_controller.js");
+const transactionsController = require("./controllers/transactions.js");
 const banksController = require("./controllers/banks_controller");
 const seedController = require("./controllers/seed_controller");
+
 
 // MONGOOSE CONNECTION
 const MONGO_URI = process.env.MONGO_URI
@@ -36,6 +38,7 @@ app.use(
 );
 app.use("/users", usersController);
 app.use("/sessions", sessionsController);
+app.use("/transactions", transactionsController);
 app.use("/banks", banksController);
 app.use("/seed", seedController);
 

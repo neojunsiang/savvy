@@ -3,9 +3,11 @@ import { useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp'
+import MainPage from "./Pages/MainPage";
+import CreateBankPage from "./Pages/CreateBankPage";
+import ShowBankPage from "./Pages/ShowBankPage";
 import NewTransaction from "./Components/NewTransaction";
 import EditTransaction from "./Components/EditTransaction";
-
 
 function App() {
 
@@ -26,25 +28,23 @@ function App() {
       </nav>
       <hr />
       <Switch>
-
         <Route path="/welcome">
           <Login setUser={setUser} />
         </Route>
         <Route path="/signup">
           <SignUp />
         </Route>
-        <Route path="/demo">
-
+        <Route path="/demo"></Route>
+        <Route path="/create-bank">
+          <CreateBankPage />
+        </Route>
+        <Route path="/main/:bankName/:nickName">
+          <ShowBankPage />
+        </Route>
+        <Route path="/main">
+          <MainPage />
         </Route>
 
-        {/* // To Remove */}
-        <Route path="/newtransaction">
-          <NewTransaction />
-        </Route>
-        <Route path="/edittransaction">
-          <EditTransaction />
-        </Route>
-        {/* // To Remove */}
       </Switch>
     </Router>
   );
