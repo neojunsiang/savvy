@@ -6,6 +6,8 @@ import SignUp from './Components/SignUp'
 import MainPage from "./Pages/MainPage";
 import CreateBankPage from "./Pages/CreateBankPage";
 import ShowBankPage from "./Pages/ShowBankPage";
+import NewTransaction from "./Components/NewTransaction";
+import EditTransaction from "./Components/EditTransaction";
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
         <Route path="/main">
           <MainPage />
         </Route>
+
       </Switch>
     </Router>
   );

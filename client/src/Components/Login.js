@@ -27,7 +27,7 @@ const Login = ({ setUser }) => {
                 console.log("resJson id ", resJson._id)
                 if (resJson._id) {
                     setUser(user);
-                    history.push("/all")
+                    history.push("/main")
                 }
             })
             .catch(error => console.error({ Error: error }))
