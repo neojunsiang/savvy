@@ -43,7 +43,7 @@ const ShowBankSummary = ({ bankName, nickName, balance, id, allTransactions }) =
         >
             <div className="bank__summary">
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Starting Balance" /><br />${balance}
+                    <Meta title="Starting Balance" /><br />${parseFloat(balance)}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
                     <Meta title="Income" /><br />${totalSum(allTransactions, "income")}
@@ -52,7 +52,7 @@ const ShowBankSummary = ({ bankName, nickName, balance, id, allTransactions }) =
                     <Meta title="Expenses" /><br />${totalSum(allTransactions, "expense")}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Ending Balance" /><br />${balance + totalSum(allTransactions, "income") - totalSum(allTransactions, "expense")}
+                    <Meta title="Ending Balance" /><br />${parseFloat(balance) + totalSum(allTransactions, "income") - totalSum(allTransactions, "expense")}
                 </Card>
                 <Link to={createTransactionLink} ><Button type="primary" shape="round">Create a Transaction</Button></Link>
             </div>
