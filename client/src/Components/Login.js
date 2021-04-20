@@ -3,8 +3,10 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
 import { useHistory } from 'react-router';
+import { useStateValue } from "./StateProvider";
 
 const Login = ({ setUser }) => {
+    const [{ loginUser }, dispatch] = useStateValue();
 
     const history = useHistory();
 
@@ -27,7 +29,11 @@ const Login = ({ setUser }) => {
                 console.log("resJson id ", resJson._id)
                 if (resJson._id) {
                     setUser(user);
-                    history.push("/main")
+                    dispatch({
+                      type: "UPON_USER_LOGIN",
+                      user: resJson.username,
+                    });
+                    history.push("/main");
                 }
             })
             .catch(error => console.error({ Error: error }))

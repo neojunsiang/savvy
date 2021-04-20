@@ -13,7 +13,7 @@ const ShowBankPage = () => {
     console.log(bankName, nickName);
 
     const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
-    const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance;
+    const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance.$numberDecimal;
     const id = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].bankId;
     console.log(id);
     console.log(allAccounts);

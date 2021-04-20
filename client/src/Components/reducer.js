@@ -1,11 +1,17 @@
 export const initialState = {
     allAccounts: [],
-    allTransactions: []
+    allTransactions: [],
+    loginUser: ""
 };
 
 const reducer = (state, action) => {
     console.log(action);
     switch (action.type) {
+        case "UPON_USER_LOGIN":
+            return {
+              ...state,
+              loginUser: action.user
+            };
         case "CREATE_AN_ACCOUNT":
             return {
                 ...state,
@@ -15,6 +21,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 allTransactions: [...state.allTransactions, action.transaction]
+            };
+        case "READ_ALL_ACCOUNTS":
+            return {
+              ...state,
+              allAccounts: action.account
             };
         default:
             return state;
