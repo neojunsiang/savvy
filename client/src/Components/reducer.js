@@ -1,5 +1,6 @@
 export const initialState = {
-  allAccounts: [],
+    allAccounts: [],
+    allTransactions: []
 };
 
 const reducer = (state, action) => {
@@ -10,8 +11,11 @@ const reducer = (state, action) => {
                 ...state,
                 allAccounts: [...state.allAccounts, action.account]
             };
-        
-    
+        case "CREATE_A_TRANSACTION":
+            return {
+                ...state,
+                allTransactions: [...state.allTransactions, action.transaction]
+            };
         default:
             return state;
     }

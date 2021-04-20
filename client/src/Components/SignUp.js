@@ -1,23 +1,32 @@
 import { React, useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/esm/Col';
-import Form from 'react-bootstrap/Form'
 import { useHistory } from 'react-router';
+import "../App.css";
+import { Form, Input, Button, Checkbox } from 'antd';
+
+const layout = {
+    labelCol: {
+        span: 2,
+    },
+    wrapperCol: {
+        span: 5,
+    },
+};
+const tailLayout = {
+    wrapperCol: {
+        offset: 2,
+        span: 5,
+    },
+};
+
 
 const SignUp = () => {
     const history = useHistory()
 
-
-
-    const handleSignUp = (event) => {
-        event.preventDefault();
-        const username = event.target.username.value;
-        const password = event.target.password.value;
-        const newUser = { username, password }; // {username: event.target.username.value, password: event.target.password.value }
-        console.log("newUser", newUser);
+    const onFinish = (values) => {
+        console.log('Success:', values);
         fetch("/users", {
             method: "POST",
-            body: JSON.stringify(newUser),
+            body: JSON.stringify(values),
             headers: {
                 "Content-Type": "application/json",
             },
@@ -31,33 +40,52 @@ const SignUp = () => {
                 // console.log("state message", message);
                 // console.log("state message", message.msg);
                 // console.log("state message", message.status);
-                history.push("/welcome")
+                // history.push("/welcome")
             })
             .catch(error => console.error({ Error: error }))
-    }
+
+    };
 
     return (
         <>
             <h1>Register New User</h1>
-            <Form onSubmit={handleSignUp}>
-                <Form.Group as={Form.Row} controlId="username">
-                    <Form.Label column sm={1}>Username</Form.Label>
-                    <Col sm={3}>
-                        <Form.Control name="username" placeholder="enter your username" required />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Form.Row} controlId="password">
-                    <Form.Label column sm={1}>Password</Form.Label>
-                    <Col sm={3}>
-                        <Form.Control name="password" placeholder="enter your password" required />
-                    </Col>
-                </Form.Group>
-                <Button type="submit" size="sm" >
-                    Register
-                </Button >
+            <Form
+                {...layout}
+                name="basic"
+                onFinish={onFinish}
+            >
+                <Form.Item
+                    label="Username"
+                    name="username"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item {...tailLayout}>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+        </Button>
+                </Form.Item>
             </Form>
-            {/* {message.status ? message.msg : null}  */}
-            {/* {message.status ? message.msg : null} */}
         </>
     )
 }

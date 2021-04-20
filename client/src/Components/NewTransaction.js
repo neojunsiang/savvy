@@ -2,14 +2,21 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
+import { useHistory, useParams } from 'react-router';
+import { useStateValue } from './StateProvider';
 
-const NewTransaction = () => {
+
+
+const NewTransaction = ({ bankName, nickName }) => {
+    const [{ allTransactions }, dispatch] = useStateValue();
+    const history = useHistory();
+
+    const bankSummaryLink = `/main/${bankName}/${nickName}`
 
     const categoryIncomeOptions = [
-        { value: "income", label: "Income" },
+        { value: "salary", label: "Salary" },
         { value: "others", label: "Others" },
     ]
-
     const categoryExpenseOptions = [
         { value: "food", label: "Food" },
         { value: "entertainment", label: "Entertainment" },
@@ -27,18 +34,13 @@ const NewTransaction = () => {
 
     const handleCreate = (event) => {
         event.preventDefault();
-        console.log("created");
-        const typeInfo = event.target.type.value;
-        const categoryInfo = event.target.category.value;
-        const dateInfo = event.target.date.value;
-        const amountInfo = event.target.amount.value;
-        const descriptionInfo = event.target.description.value;
-        // console.log("type", typeInfo);
-        // console.log("catInfo", categoryInfo);
-        // console.log("dateInfo", dateInfo);
-        // console.log("amountInfo", amountInfo);
-        // console.log("descriptionInfo", descriptionInfo);
-        const newTransaction = { typeInfo, categoryInfo, dateInfo, amountInfo, descriptionInfo };
+        const newTransaction = {
+            type: event.target.type.value,
+            category: event.target.category.value,
+            amount: event.target.amount.value,
+            description: event.target.description.value,
+            date: event.target.date.value
+        };
         console.log("new", newTransaction);
         fetch("/transactions", {
             method: "POST",
@@ -49,7 +51,14 @@ const NewTransaction = () => {
         })
             .then(res => res.json())
             .then(resJson => {
-                console.log(resJson);
+                console.log("resJson", resJson);
+                dispatch({
+                    type: "CREATE_A_TRANSACTION",
+                    transaction: {
+                        newTransaction
+                    }
+                })
+                history.push(bankSummaryLink)
             })
             .catch(error => console.error({ Error: error }))
     }
