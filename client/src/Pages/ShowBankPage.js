@@ -9,30 +9,30 @@ import Path from "../Components/Path";
 import ShowBankSummary from "../Components/ShowBankSummary";
 
 const ShowBankPage = () => {
-    const { bankName, nickName } = useParams();
-    console.log(bankName, nickName);
+  const { bankName, nickName } = useParams();
+  console.log(bankName, nickName);
 
-    const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
-    const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance.$numberDecimal;
-    const id = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].bankId;
-    console.log(id);
-    console.log(allAccounts);
-    console.log(allTransactions);
+  const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
+  const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance;
+  const id = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].bankId;
+  console.log(id);
+  console.log(allAccounts);
+  console.log("show bank page", allTransactions);
 
-    return (
-      <div>
+  return (
+    <div>
+      <Layout>
+        <Navbar />
         <Layout>
-          <Navbar />
-          <Layout>
-            <Sidebar />
-            <Layout style={{ padding: "0 24px 24px" }}>
-              <Path bankName={bankName} nickName={nickName}/>
-              <ShowBankSummary bankName={bankName} nickName={nickName} balance={balance} id={id}/>
-            </Layout>
+          <Sidebar />
+          <Layout style={{ padding: "0 24px 24px" }}>
+            <Path bankName={bankName} nickName={nickName} />
+            <ShowBankSummary bankName={bankName} nickName={nickName} balance={balance} id={id} allTransactions={allTransactions} />
           </Layout>
         </Layout>
-      </div>
-    );
+      </Layout>
+    </div>
+  );
 }
 
 export default ShowBankPage;
