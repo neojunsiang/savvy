@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import "../App.css";
-import { Layout } from "antd";
-import { Card } from "antd";
+import { Layout, Card, Empty } from "antd";
 import { BankFilled, DollarCircleFilled } from "@ant-design/icons";
 
 const { Content } = Layout;
@@ -10,6 +9,7 @@ const { Meta } = Card;
 
 const Start = ({ allAccounts }) => {
   console.log(allAccounts);
+
     return (
       <Content
         className="site-layout-background"
@@ -27,7 +27,9 @@ const Start = ({ allAccounts }) => {
             </Card>
           </Link><br/>
           <h4>Your Accounts:</h4>
-          {allAccounts.map(account => <Link to={{pathname: `/main/${account.bankName}/${account.nickName}`}}><p>{account.bankName} / {account.nickName}</p></Link>)}
+          {allAccounts.length > 0 
+            ? allAccounts.map(account => <Link key={account._id} to={{pathname: `/main/${account.bankName}/${account.nickName}`}}><p>{account.bankName} / {account.nickName}</p></Link>) 
+            : <Empty description={<span>You have no accounts</span>}/>}
         </div>
       </Content>
     );

@@ -6,7 +6,18 @@ const Bank = require("../models/banks");
 // DEFINE ROUTES
 // get
 banks.get("/", (req, res) => {
-    res.send("Hello");
+  // Bank.find({}, (err, foundBanks) => {
+  //     if (err) {
+  //         res.status(400).json({ error: error.message });
+  //     }
+  //     res.status(200).json(foundBanks);
+  // })
+  Bank.find({ loginUser: req.session.currentUser._id }, (err, foundBanks) => {
+    if (err) {
+      res.status(400).json({ error: error.message });
+    }
+    res.status(200).json(foundBanks);
+  })
 })
 
 // create
