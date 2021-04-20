@@ -12,8 +12,12 @@ const ShowBankPage = () => {
     const { bankName, nickName } = useParams();
     console.log(bankName, nickName);
 
-    const [{ allAccounts }, dispatch] = useStateValue();
+    const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
     const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance;
+    const id = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].bankId;
+    console.log(id);
+    console.log(allAccounts);
+    console.log(allTransactions);
 
     return (
       <div>
@@ -23,7 +27,7 @@ const ShowBankPage = () => {
             <Sidebar />
             <Layout style={{ padding: "0 24px 24px" }}>
               <Path bankName={bankName} nickName={nickName}/>
-              <ShowBankSummary bankName={bankName} nickName={nickName} balance={balance}/>
+              <ShowBankSummary bankName={bankName} nickName={nickName} balance={balance} id={id}/>
             </Layout>
           </Layout>
         </Layout>

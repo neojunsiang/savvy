@@ -39,7 +39,7 @@ function App() {
         <Route path="/create-bank">
           <CreateBankPage />
         </Route>
-        <Route path="/main/:bankName/:nickName/create-transaction">
+        <Route path="/main/:bankName/:nickName/:id/create-transaction">
           <CreateTransactionPage />
         </Route>
         <Route path="/main/:bankName/:nickName">

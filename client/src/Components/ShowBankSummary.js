@@ -9,11 +9,11 @@ import { useStateValue } from './StateProvider';
 const { Content } = Layout;
 const { Meta } = Card;
 
-const ShowBankSummary = ({ bankName, nickName, balance }) => {
+const ShowBankSummary = ({ bankName, nickName, balance, id }) => {
     // const [{ allAccounts }, dispatch] = useStateValue();
     // const accountBalance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance;
 
-    const createTransactionLink = `/main/${bankName}/${nickName}/create-transaction`
+    const createTransactionLink = `/main/${bankName}/${nickName}/${id}/create-transaction`
 
     return (
         <Content

@@ -7,7 +7,7 @@ import { useStateValue } from './StateProvider';
 
 
 
-const NewTransaction = ({ bankName, nickName }) => {
+const NewTransaction = ({ bankName, nickName, id }) => {
     const [{ allTransactions }, dispatch] = useStateValue();
     const history = useHistory();
 
@@ -39,7 +39,8 @@ const NewTransaction = ({ bankName, nickName }) => {
             category: event.target.category.value,
             amount: event.target.amount.value,
             description: event.target.description.value,
-            date: event.target.date.value
+            date: event.target.date.value,
+            bankId: id
         };
         console.log("new", newTransaction);
         fetch("/transactions", {
