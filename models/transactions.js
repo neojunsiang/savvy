@@ -10,6 +10,7 @@ const transactionSchema = Schema({
   amount: { type: mongoose.Types.Decimal128, required: true },
   description: String,
   date: { type: String, required: true },
+  bankId: { type: Schema.Types.ObjectId, ref: "Bank" },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);

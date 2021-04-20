@@ -9,23 +9,22 @@ import NewTransaction from "../Components/NewTransaction"
 
 const CreateTransactionPage = () => {
 
-    const { bankName, nickName } = useParams();
+    const { bankName, nickName, id } = useParams();
 
     return (
-        <div>
-            <Layout>
-                <Navbar />
-                <Layout>
-                    <Sidebar />
-                    <Layout style={{ padding: "0 24px 24px" }}>
-                        <Path />
-                        <NewTransaction bankName={bankName} nickName={nickName} />
-                    </Layout>
-                </Layout>
+      <div>
+        <Layout>
+          <Navbar />
+          <Layout>
+            <Sidebar />
+            <Layout style={{ padding: "0 24px 24px" }}>
+              <Path />
+              <NewTransaction bankName={bankName} nickName={nickName} id={id} />
             </Layout>
-
-        </div>
-    )
+          </Layout>
+        </Layout>
+      </div>
+    );
 }
 
 export default CreateTransactionPage
