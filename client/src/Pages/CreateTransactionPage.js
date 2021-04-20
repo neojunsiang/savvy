@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from "react-router-dom";
 import "../App.css";
 import { Layout } from "antd";
 import Navbar from "../Components/Navbar";
@@ -7,6 +8,9 @@ import Path from "../Components/Path";
 import NewTransaction from "../Components/NewTransaction"
 
 const CreateTransactionPage = () => {
+
+    const { bankName, nickName } = useParams();
+
     return (
         <div>
             <Layout>
@@ -15,7 +19,7 @@ const CreateTransactionPage = () => {
                     <Sidebar />
                     <Layout style={{ padding: "0 24px 24px" }}>
                         <Path />
-                        <NewTransaction />
+                        <NewTransaction bankName={bankName} nickName={nickName} />
                     </Layout>
                 </Layout>
             </Layout>
