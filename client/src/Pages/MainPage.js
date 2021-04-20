@@ -1,5 +1,5 @@
 //! Page that a user will see upon successful login
-import React from 'react';
+import { useEffect } from 'react';
 import { useStateValue } from "../Components/StateProvider";
 import "../App.css";
 import { Layout, Menu } from "antd";
@@ -12,8 +12,25 @@ import Start from '../Components/Start';
 // const { Header, Content, Sider } = Layout;
 
 const MainPage = () => {
-  const [{ allAccounts }, dispatch] = useStateValue();
-  console.log(allAccounts);
+  const [{ allAccounts, loginUser }, dispatch] = useStateValue();
+  // console.log(allAccounts);
+  console.log(loginUser);
+
+  useEffect(() => {
+    fetch("/banks")
+    .then((data) => {
+      return data.json();
+    }, (err) => {
+      console.log(err);
+    })
+    .then((parsedData) => {
+      console.log(parsedData);
+      dispatch({
+        type: "READ_ALL_ACCOUNTS",
+        account: parsedData
+      });
+    }, (err) => console.log(err))
+  }, []);
 
     return (
       <div>
