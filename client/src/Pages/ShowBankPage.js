@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useParams } from "react-router";
 import { useStateValue } from "../Components/StateProvider";
 import "../App.css";
@@ -11,13 +11,30 @@ import ShowBankSummary from "../Components/ShowBankSummary";
 const ShowBankPage = () => {
   const { bankName, nickName } = useParams();
   console.log(bankName, nickName);
-
   const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
   const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance.$numberDecimal;
-  const id = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].bankId;
-  console.log(id);
+  const bankId = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)]._id;
+  console.log(bankId);
   console.log(allAccounts);
   console.log("show bank page", allTransactions);
+
+  useEffect(() => {
+    fetch("/transactions")
+      .then((data) => {
+        return data.json();
+      }, (err) => {
+        console.log(err)
+      })
+      .then((parsedData) => {
+        console.log(parsedData);
+        const bankTransactions = parsedData.filter(transaction => transaction.bankId === bankId);
+        console.log(bankTransactions);
+        dispatch({
+          type: "READ_ALL_TRANSACTIONS",
+          transactions: bankTransactions
+        });
+      }, (err) => console.log(err))
+  }, []);
 
   return (
     <div>
@@ -27,7 +44,7 @@ const ShowBankPage = () => {
           <Sidebar />
           <Layout style={{ padding: "0 24px 24px" }}>
             <Path bankName={bankName} nickName={nickName} />
-            <ShowBankSummary bankName={bankName} nickName={nickName} balance={balance} id={id} allTransactions={allTransactions} />
+            <ShowBankSummary bankName={bankName} nickName={nickName} balance={balance} bankId={bankId} />
           </Layout>
         </Layout>
       </Layout>

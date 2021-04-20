@@ -5,47 +5,50 @@ import { Table, Tag, Space, Button } from 'antd';
 
 const TransactionTable = ({ allTransactions }) => {
 
-    console.log("txn table", allTransactions);
-    const transaction = allTransactions.map((txn, id) => {
-        console.log(txn.newTransaction);
-        return txn.newTransaction;
-    })
-    console.log(transaction);
+    // console.log("txn table", allTransactions);
+    // const transaction = allTransactions.map((txn, id) => {
+    //     console.log(txn.newTransaction);
+    //     return txn.newTransaction;
+    // })
+    // console.log(transaction);
 
     const columns = [
-        {
-            title: "Date",
-            dataIndex: "date",
-            key: "date",
-        },
-        {
-            title: "Type",
-            dataIndex: "type",
-            key: "type",
-        }, {
-            title: "Category",
-            dataIndex: "category",
-            key: "category",
-        }, {
-            title: "Amount",
-            dataIndex: "amount",
-            key: "amount",
-        }, {
-            title: "Description",
-            dataIndex: "description",
-            key: "description",
-        },
-        {
-            title: "Action",
-            key: "action",
-            render: () => (
-                < Space size="middle" >
-                    <Button type="primary">Edit</Button>
-                    <Button type="primary">Delete</Button>
-                </ Space >
-            )
-        },
-    ]
+      {
+        title: "Date",
+        dataIndex: "date",
+        key: "date",
+      },
+      {
+        title: "Type",
+        dataIndex: "type",
+        key: "type",
+      },
+      {
+        title: "Category",
+        dataIndex: "category",
+        key: "category",
+      },
+      {
+        title: "Amount",
+        dataIndex: ["amount", "$numberDecimal"],
+        key: "amount",
+      },
+      {
+        title: "Description",
+        dataIndex: "description",
+        key: "description",
+      },
+      {
+        title: "Action",
+        key: "action",
+        render: () => (
+          <Space size="middle">
+            <Button type="primary">Edit</Button>
+            <Button type="primary">Delete</Button>
+          </Space>
+        ),
+      },
+    ];
 
     const data = [
         {
@@ -60,10 +63,10 @@ const TransactionTable = ({ allTransactions }) => {
 
 
     return (
-        <div>
-            <Table columns={columns} dataSource={transaction} />
-        </div>
-    )
+      <div>
+        <Table columns={columns} dataSource={allTransactions} />
+      </div>
+    );
 }
 
 export default TransactionTable
