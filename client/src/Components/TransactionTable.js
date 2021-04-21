@@ -4,27 +4,14 @@ import { Table, Tag, Space, Button } from 'antd';
 
 const TransactionTable = ({ allTransactions }) => {
 
-
-    const dataSource = allTransactions;
-    console.log("dataSource", dataSource);
-
     console.log("allTxns", allTransactions);
-    const transaction = allTransactions.map((txn, id) => {
-        console.log("txn newTransaction", txn.resJson);
-        return txn.resJson;
-    })
-    console.log("txn after transformation", transaction); // output = [{...}, {...}]
 
-    const handleDelete = () => {
-        // console.log(event); 
-        console.log("deleted")
+    const handleDelete = (id) => {
+        console.log("deleted " + id);
+        fetch("/transactions/" + id, {
+            method: "DELETE"
+        }).then((res) => console.log(res.json()))
     }
-    // console.log("txn table", allTransactions);
-    // const transaction = allTransactions.map((txn, id) => {
-    //     console.log(txn.newTransaction);
-    //     return txn.newTransaction;
-    // })
-    // console.log(transaction);
 
     const columns = [
         {
@@ -54,13 +41,14 @@ const TransactionTable = ({ allTransactions }) => {
         },
         {
             title: "Action",
-            key: "action",
-            render: () => (
-                <Space size="middle">
-                    <Button type="primary">Edit</Button>
-                    <Button type="primary">Delete</Button>
-                </Space>
-            ),
+            render: (text, record, index) => (
+                // console.log("text", text._id) // show the object
+                // console.log(record) // show the object
+                // console.log(index) // show the index of the row 
+                <Space Space size="middle" >
+                    <Button type="primary" onClick={() => handleDelete(record._id)}>Delete</Button>
+                </Space >
+            )
         },
     ];
 
