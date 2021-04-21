@@ -17,6 +17,7 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
     const [{ allTransactions }, dispatch] = useStateValue();
     // const accountBalance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance;
     const createTransactionLink = `/main/${bankName}/${nickName}/${bankId}/create-transaction`;
+    const EditTransactionPage = `/main/${bankName}/${nickName}/${bankId}/edit-transaction`;
 
     const totalSum = (allTransactions, transactionType) => {
         let sum = 0;
@@ -54,7 +55,10 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
                 </Card>
                 <Link to={createTransactionLink}><Button type="primary" shape="round" icon={<PlusOutlined />} /></Link>
             </div>
-            <TransactionTable allTransactions={allTransactions} />
+            <br />
+            <div>
+                <TransactionTable allTransactions={allTransactions} EditTransactionPage={EditTransactionPage} />
+            </div>
         </Content>
     )
 }

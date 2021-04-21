@@ -2,8 +2,12 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
+import { useStateValue } from "./StateProvider";
+
 
 const EditTransaction = () => {
+
+    // const editedTransaction = 
 
     const handleEdit = (event) => {
         event.preventDefault();

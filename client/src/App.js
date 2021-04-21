@@ -6,9 +6,8 @@ import SignUp from './Components/SignUp'
 import MainPage from "./Pages/MainPage";
 import CreateBankPage from "./Pages/CreateBankPage";
 import ShowBankPage from "./Pages/ShowBankPage";
-import NewTransaction from "./Components/NewTransaction";
-import EditTransaction from "./Components/EditTransaction";
 import CreateTransactionPage from "./Pages/CreateTransactionPage";
+import EditTransactionPage from "./Pages/EditTransactionPage";
 
 function App() {
 
@@ -38,6 +37,9 @@ function App() {
         <Route path="/demo"></Route>
         <Route path="/create-bank">
           <CreateBankPage />
+        </Route>
+        <Route path="/main/:bankName/:nickName/:bankId/edit-transaction">
+          <EditTransactionPage />
         </Route>
         <Route path="/main/:bankName/:nickName/:bankId/create-transaction">
           <CreateTransactionPage />

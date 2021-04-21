@@ -2,6 +2,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
+import { Link } from "react-router-dom";
 import { useHistory } from 'react-router';
 import { useStateValue } from "./StateProvider";
 
@@ -30,8 +31,8 @@ const Login = ({ setUser }) => {
                 if (resJson._id) {
                     setUser(user);
                     dispatch({
-                      type: "UPON_USER_LOGIN",
-                      user: resJson.username,
+                        type: "UPON_USER_LOGIN",
+                        user: resJson.username,
                     });
                     history.push("/main");
                 }
@@ -60,7 +61,7 @@ const Login = ({ setUser }) => {
                 </Button >
             </Form>
             <br />
-            <Button variant="primary" href="/signup" size="sm">Getting Started</Button>
+            <Link to="/signup"><Button variant="primary" size="sm">Getting Started</Button></Link>
             <br />
             <a href="/demo">Not sure how it works? Click here for demo</a>
         </>
