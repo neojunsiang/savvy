@@ -51,12 +51,12 @@ const NewTransaction = ({ bankName, nickName, id }) => {
             }
         })
             .then(res => res.json())
-            .then(resJson => {
+            .then(resJson => { //transaction._id
                 console.log("resJson", resJson);
                 dispatch({
                     type: "CREATE_A_TRANSACTION",
                     transaction: {
-                        newTransaction
+                        resJson
                     }
                 })
                 history.push(bankSummaryLink)

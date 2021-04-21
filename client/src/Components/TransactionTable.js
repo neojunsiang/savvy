@@ -2,22 +2,21 @@ import React from 'react'
 import "../App.css";
 import { Table, Tag, Space, Button } from 'antd';
 
-
 const TransactionTable = ({ allTransactions }) => {
 
-    console.log("txn table", allTransactions);
-    const transaction = allTransactions.map((txn, id) => {
-        console.log(txn.newTransaction);
-        return txn.newTransaction;
-    })
-    console.log(transaction);
+    const dataSource = allTransactions;
+    console.log("dataSource", dataSource);
 
-    const handleEdit = () => {
-        console.log("edited txn table");
-    }
+    console.log("allTxns", allTransactions);
+    const transaction = allTransactions.map((txn, id) => {
+        console.log("txn newTransaction", txn.resJson);
+        return txn.resJson;
+    })
+    console.log("txn after transformation", transaction); // output = [{...}, {...}]
 
     const handleDelete = () => {
-        console.log("deleted txn table");
+        // console.log(event); 
+        console.log("deleted")
     }
 
     const columns = [
@@ -36,7 +35,7 @@ const TransactionTable = ({ allTransactions }) => {
             key: "category",
         }, {
             title: "Amount",
-            dataIndex: "amount",
+            dataIndex: ["amount", "$numberDecimal"],
             key: "amount",
         }, {
             title: "Description",
@@ -48,23 +47,12 @@ const TransactionTable = ({ allTransactions }) => {
             key: "action",
             render: () => (
                 < Space size="middle" >
-                    <Button onClick={handleEdit} type="primary">Edit</Button>
-                    <Button onClick={handleDelete} type="primary">Delete</Button>
+                    <Button type="primary">Edit</Button>
+                    <Button type="primary" onClick={handleDelete}>Delete</Button>
                 </ Space >
             )
         },
     ]
-
-    // const data = [
-    //     {
-    //         "date": "5 March 2021",
-    //         "type": "income",
-    //         "category": "salary",
-    //         "amount": "100",
-    //         "description": "Salary",
-    //         "bankId": "607e59a3f69d360ef5c7b877"
-    //     }
-    // ]
 
 
     return (
