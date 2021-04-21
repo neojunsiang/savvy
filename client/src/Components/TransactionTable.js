@@ -1,16 +1,26 @@
 import React from 'react'
 import "../App.css";
 import { Table, Tag, Space, Button } from 'antd';
+import { useStateValue } from "./StateProvider";
 
 const TransactionTable = ({ allTransactions }) => {
 
+    const [{}, dispatch] = useStateValue();
     console.log("allTxns", allTransactions);
 
-    const handleDelete = (id) => {
-        console.log("deleted " + id);
-        fetch("/transactions/" + id, {
-            method: "DELETE"
-        }).then((res) => console.log(res.json()))
+    const handleDelete = (bankId, transactionId) => {
+        console.log("deleted bankId " + bankId);
+        console.log("deleted transactionId " + transactionId);
+        fetch("/transactions/" + transactionId, {
+          method: "DELETE",
+        }).then((res) => {
+          console.log(res.json());
+          dispatch({
+            type: "DELETE_A_TRANSACTION",
+            bankId: bankId,
+            transactionId: transactionId
+          });
+        }, (err) => console.log(err));
     }
 
     const columns = [
@@ -44,9 +54,9 @@ const TransactionTable = ({ allTransactions }) => {
             render: (text, record, index) => (
                 // console.log("text", text._id) // show the object
                 // console.log(record) // show the object
-                // console.log(index) // show the index of the row 
+                // console.log(index) // show the index of the row
                 <Space Space size="middle" >
-                    <Button type="primary" onClick={() => handleDelete(record._id)}>Delete</Button>
+                    <Button type="primary" onClick={() => handleDelete(record.bankId, record._id)}>Delete</Button>
                 </Space >
             )
         },
