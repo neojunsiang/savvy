@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from "react-router";
 import { useStateValue } from "../Components/StateProvider";
 import "../App.css";
@@ -12,10 +12,10 @@ const ShowBankPage = () => {
   const { bankName, nickName } = useParams();
   console.log(bankName, nickName);
   const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
+  console.log("catch balance error", allAccounts);
   const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance.$numberDecimal;
   const bankId = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)]._id;
   console.log(bankId);
-  console.log(allAccounts);
   console.log("show bank page", allTransactions);
 
   useEffect(() => {
