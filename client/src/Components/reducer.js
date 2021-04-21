@@ -25,7 +25,12 @@ const reducer = (state, action) => {
         case "READ_ALL_ACCOUNTS":
             return {
               ...state,
-              allAccounts: action.account
+              allAccounts: action.accounts
+            };
+        case "READ_ALL_TRANSACTIONS":
+            return {
+                ...state,
+                allTransactions: action.transactions
             };
         default:
             return state;
