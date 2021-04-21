@@ -22,11 +22,11 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
     const totalSum = (allTransactions, transactionType) => {
         let sum = 0;
         for (let i = 0; i < allTransactions.length; i++) {
-            console.log(allTransactions[i]);
+            // console.log(allTransactions[i]);
             if (allTransactions[i].type === transactionType.toString()) {
                 sum += parseFloat(allTransactions[i].amount.$numberDecimal);
             }
-            console.log("sum", sum);
+            // console.log("sum", sum);
         }
         return sum
     }
@@ -42,13 +42,13 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
         >
             <div className="bank__summary">
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Starting Balance" /><br />${parseFloat(balance)}
+                    <Meta title="Starting Balance" /><br />${(parseFloat(balance)).toFixed(2)}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Income" /><br />${totalSum(allTransactions, "income")}
+                    <Meta title="Income" /><br />${(totalSum(allTransactions, "income")).toFixed(2)}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Expenses" /><br />${totalSum(allTransactions, "expense")}
+                    <Meta title="Expenses" /><br />${(totalSum(allTransactions, "expense")).toFixed(2)}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
                     <Meta title="Ending Balance" /><br />${(parseFloat(balance) + totalSum(allTransactions, "income") - totalSum(allTransactions, "expense")).toFixed(2)}
