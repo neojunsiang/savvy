@@ -6,24 +6,22 @@ import { Card } from "antd";
 import { Button } from "antd"
 import { useStateValue } from './StateProvider';
 import TransactionTable from './TransactionTable';
+import { PlusOutlined } from '@ant-design/icons';
+
 
 const { Content } = Layout;
 const { Meta } = Card;
+
 
 const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
     const [{ allTransactions }, dispatch] = useStateValue();
     // const accountBalance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance;
     const createTransactionLink = `/main/${bankName}/${nickName}/${bankId}/create-transaction`;
 
-    // console.log("bank summary allTxns", allTransactions);
-
     const totalSum = (allTransactions, transactionType) => {
         let sum = 0;
         for (let i = 0; i < allTransactions.length; i++) {
             console.log(allTransactions[i]);
-            // if (allTransactions[i].newTransaction.type === transactionType.toString()) {
-            //     sum += parseFloat(allTransactions[i].newTransaction.amount);
-            // }
             if (allTransactions[i].type === transactionType.toString()) {
                 sum += parseFloat(allTransactions[i].amount.$numberDecimal);
             }
@@ -31,9 +29,6 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
         }
         return sum
     }
-
-    // console.log("income", totalSum(allTransactions, "income"));
-    // console.log("expense", totalSum(allTransactions, "expense"));
 
     return (
         <Content
@@ -55,9 +50,9 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
                     <Meta title="Expenses" /><br />${totalSum(allTransactions, "expense")}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Ending Balance" /><br />${parseFloat(balance) + totalSum(allTransactions, "income") - totalSum(allTransactions, "expense")}
+                    <Meta title="Ending Balance" /><br />${(parseFloat(balance) + totalSum(allTransactions, "income") - totalSum(allTransactions, "expense")).toFixed(2)}
                 </Card>
-                <Link to={createTransactionLink}><Button type="primary" shape="round">Create a Transaction</Button></Link>
+                <Link to={createTransactionLink}><Button type="primary" shape="round" icon={<PlusOutlined />} /></Link>
             </div>
             <TransactionTable allTransactions={allTransactions} />
         </Content>
