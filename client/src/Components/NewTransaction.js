@@ -60,6 +60,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
             description: event.target.description.value,
             date: event.target.date.value,
             bankId: bankId,
+            transactionId: resJson._id
           },
         });
         history.push(bankSummaryLink);
