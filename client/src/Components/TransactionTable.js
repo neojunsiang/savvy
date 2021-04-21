@@ -4,6 +4,7 @@ import { Table, Tag, Space, Button } from 'antd';
 
 const TransactionTable = ({ allTransactions }) => {
 
+
     const dataSource = allTransactions;
     console.log("dataSource", dataSource);
 
@@ -18,6 +19,12 @@ const TransactionTable = ({ allTransactions }) => {
         // console.log(event); 
         console.log("deleted")
     }
+    // console.log("txn table", allTransactions);
+    // const transaction = allTransactions.map((txn, id) => {
+    //     console.log(txn.newTransaction);
+    //     return txn.newTransaction;
+    // })
+    // console.log(transaction);
 
     const columns = [
         {
@@ -29,15 +36,18 @@ const TransactionTable = ({ allTransactions }) => {
             title: "Type",
             dataIndex: "type",
             key: "type",
-        }, {
+        },
+        {
             title: "Category",
             dataIndex: "category",
             key: "category",
-        }, {
+        },
+        {
             title: "Amount",
             dataIndex: ["amount", "$numberDecimal"],
             key: "amount",
-        }, {
+        },
+        {
             title: "Description",
             dataIndex: "description",
             key: "description",
@@ -46,20 +56,19 @@ const TransactionTable = ({ allTransactions }) => {
             title: "Action",
             key: "action",
             render: () => (
-                < Space size="middle" >
+                <Space size="middle">
                     <Button type="primary">Edit</Button>
-                    <Button type="primary" onClick={handleDelete}>Delete</Button>
-                </ Space >
-            )
+                    <Button type="primary">Delete</Button>
+                </Space>
+            ),
         },
-    ]
-
+    ];
 
     return (
         <div>
-            <Table columns={columns} dataSource={transaction} />
+            <Table columns={columns} dataSource={allTransactions} />
         </div>
-    )
+    );
 }
 
 export default TransactionTable
