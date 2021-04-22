@@ -37,50 +37,51 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         const bankIndex = allAccounts.findIndex(account => account._id === bankId);
         // reference to endingBalance
         return allAccounts[bankIndex].balance.$numberDecimal;
+        // console.log(typeof allAccounts[bankIndex].balance.$numberDecimal);
     }
-    // console.log(checkBankBalance());
+
 
     const handleCreate = (event) => {
-        event.preventDefault();
-        const newTransaction = {
-            type: event.target.type.value,
-            category: event.target.category.value,
-            amount: event.target.amount.value,
-            description: event.target.description.value,
-            date: event.target.date.value,
-            bankId: bankId,
-        };
-        console.log("new", newTransaction);
-        // do a conditional check if event.target.amount.value > bank
-        if (parseFloat(event.target.amount.value) > parseFloat(checkBankBalance()) && event.target.type.value === "expense") {
-            alert("You cannot spend more than your bank balance.")
-        } else {
-            fetch("/transactions", {
-                method: "POST",
-                body: JSON.stringify(newTransaction),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-                .then((res) => res.json())
-                .then((resJson) => {
-                    console.log("resJson", resJson);
-                    dispatch({
-                        type: "CREATE_A_TRANSACTION",
-                        transaction: {
-                            type: event.target.type.value,
-                            category: event.target.category.value,
-                            amount: event.target.amount.value,
-                            description: event.target.description.value,
-                            date: event.target.date.value,
-                            bankId: bankId,
-                            transactionId: resJson._id,
-                        },
-                    });
-                    history.push(bankSummaryLink);
-                })
-                .catch((error) => console.error({ Error: error }));
-        }
+      event.preventDefault();
+      const newTransaction = {
+        type: event.target.type.value,
+        category: event.target.category.value,
+        amount: event.target.amount.value,
+        description: event.target.description.value,
+        date: event.target.date.value,
+        bankId: bankId,
+      };
+      console.log("new", newTransaction);
+      // do a conditional check if event.target.amount.value > bank
+      if (parseInt(event.target.amount.value) > parseInt(checkBankBalance()) && event.target.type.value === "expense") {
+          alert("You cannot spend more than your bank balance.")
+      } else {
+        fetch("/transactions", {
+          method: "POST",
+          body: JSON.stringify(newTransaction),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((resJson) => {
+            console.log("resJson", resJson);
+            dispatch({
+              type: "CREATE_A_TRANSACTION",
+              transaction: {
+                type: event.target.type.value,
+                category: event.target.category.value,
+                amount: event.target.amount.value,
+                description: event.target.description.value,
+                date: event.target.date.value,
+                bankId: bankId,
+                transactionId: resJson._id,
+              },
+            });
+            history.push(bankSummaryLink);
+          })
+          .catch((error) => console.error({ Error: error }));
+      }
     };
 
     return (
