@@ -2,8 +2,11 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
+import { DatePicker, Space } from 'antd';
 import { useHistory, useParams } from 'react-router';
 import { useStateValue } from './StateProvider';
+
+
 
 const NewTransaction = ({ bankName, nickName, bankId }) => {
     const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
@@ -35,51 +38,50 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         // reference to endingBalance
         return allAccounts[bankIndex].balance.$numberDecimal;
     }
-
-    console.log(checkBankBalance());
+    // console.log(checkBankBalance());
 
     const handleCreate = (event) => {
-      event.preventDefault();
-      const newTransaction = {
-        type: event.target.type.value,
-        category: event.target.category.value,
-        amount: event.target.amount.value,
-        description: event.target.description.value,
-        date: event.target.date.value,
-        bankId: bankId,
-      };
-      console.log("new", newTransaction);
-      // do a conditional check if event.target.amount.value > bank
-      if (event.target.amount.value > checkBankBalance() && event.target.type.value === "expense") {
-          alert("You cannot spend more than your bank balance.")
-      } else {
-        fetch("/transactions", {
-          method: "POST",
-          body: JSON.stringify(newTransaction),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((resJson) => {
-            console.log("resJson", resJson);
-            dispatch({
-              type: "CREATE_A_TRANSACTION",
-              transaction: {
-                type: event.target.type.value,
-                category: event.target.category.value,
-                amount: event.target.amount.value,
-                description: event.target.description.value,
-                date: event.target.date.value,
-                bankId: bankId,
-                transactionId: resJson._id,
-              },
-            });
-            history.push(bankSummaryLink);
-          })
-          .catch((error) => console.error({ Error: error }));
-      }
-        
+        event.preventDefault();
+        const newTransaction = {
+            type: event.target.type.value,
+            category: event.target.category.value,
+            amount: event.target.amount.value,
+            description: event.target.description.value,
+            date: event.target.date.value,
+            bankId: bankId,
+        };
+        console.log("new", newTransaction);
+        // do a conditional check if event.target.amount.value > bank
+        if (parseFloat(event.target.amount.value) > parseFloat(checkBankBalance()) && event.target.type.value === "expense") {
+            alert("You cannot spend more than your bank balance.")
+        } else {
+            fetch("/transactions", {
+                method: "POST",
+                body: JSON.stringify(newTransaction),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((res) => res.json())
+                .then((resJson) => {
+                    console.log("resJson", resJson);
+                    dispatch({
+                        type: "CREATE_A_TRANSACTION",
+                        transaction: {
+                            type: event.target.type.value,
+                            category: event.target.category.value,
+                            amount: event.target.amount.value,
+                            description: event.target.description.value,
+                            date: event.target.date.value,
+                            bankId: bankId,
+                            transactionId: resJson._id,
+                        },
+                    });
+                    history.push(bankSummaryLink);
+                })
+                .catch((error) => console.error({ Error: error }));
+        }
+
     };
 
     return (
@@ -91,7 +93,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Type
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control as="select">
+                        <Form.Control as="select" required>
                             <option value="income">Income</option>
                             <option value="expense">Expense</option>
                         </Form.Control>
@@ -103,7 +105,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Category
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control as="select">
+                        <Form.Control as="select" required>
                             <optgroup label="Income">
                                 {categoryIncomeOptions.map((income, id) => {
                                     return (
@@ -131,7 +133,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Date
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="date" placeholder="Date of Transaction" />
+                        <Form.Control name="date" placeholder="Date of Transaction" required />
                     </Col>
                 </Form.Group>
 
@@ -140,7 +142,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Amount:
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="amount" placeholder="Amount" />
+                        <Form.Control name="amount" placeholder="Amount" type="float" required />
                     </Col>
                 </Form.Group>
 
@@ -157,6 +159,10 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                     Create
         </Button>
             </Form>
+
+
+
+
         </>
     );
 };

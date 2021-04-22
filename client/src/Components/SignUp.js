@@ -1,8 +1,9 @@
 import { React, useState } from 'react'
 import { useHistory } from 'react-router';
+import { Link } from "react-router-dom"
 import "../App.css";
 import NavBar from "../Components/Navbar"
-import { Form, Input, Button, Checkbox, PageHeader } from 'antd';
+import { Form, Input, Button, PageHeader } from 'antd';
 
 const layout = {
     labelCol: {
@@ -92,6 +93,9 @@ const SignUp = () => {
         </Button>
                 </Form.Item>
             </Form>
+            <div style={{ marginLeft: "24px", position: "relative" }}>
+                Already have an account? <Link to="/welcome">Log In</Link>
+            </div>
         </>
     )
 }
