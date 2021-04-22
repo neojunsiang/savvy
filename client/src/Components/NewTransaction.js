@@ -34,9 +34,8 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         const bankIndex = allAccounts.findIndex(account => account._id === bankId);
         // reference to endingBalance
         return allAccounts[bankIndex].balance.$numberDecimal;
+        // console.log(typeof allAccounts[bankIndex].balance.$numberDecimal);
     }
-
-    console.log(checkBankBalance());
 
     const handleCreate = (event) => {
       event.preventDefault();
@@ -50,7 +49,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
       };
       console.log("new", newTransaction);
       // do a conditional check if event.target.amount.value > bank
-      if (event.target.amount.value > checkBankBalance() && event.target.type.value === "expense") {
+      if (parseInt(event.target.amount.value) > parseInt(checkBankBalance()) && event.target.type.value === "expense") {
           alert("You cannot spend more than your bank balance.")
       } else {
         fetch("/transactions", {
