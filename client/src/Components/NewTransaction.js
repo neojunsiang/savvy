@@ -81,7 +81,6 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                 })
                 .catch((error) => console.error({ Error: error }));
         }
-
     };
 
     return (
@@ -142,7 +141,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Amount:
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="amount" placeholder="Amount" type="float" required />
+                        <Form.Control name="amount" placeholder="Amount" type="number" step="0.01" required />
                     </Col>
                 </Form.Group>
 
