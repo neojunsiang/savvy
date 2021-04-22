@@ -2,7 +2,8 @@ export const initialState = {
     allAccounts: [],
     allTransactions: [],
     loginUser: "",
-    editTransaction: []
+    editTransaction: [],
+    tempEndingBalance: 0
 };
 
 const reducer = (state, action) => {
@@ -17,6 +18,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 allAccounts: [...state.allAccounts, action.account]
+            };
+        case "CLICK_CREATE_A_TRANSACTION_BUTTON":
+            return {
+              ...state,
+              tempEndingBalance: action.tempEndingBalance
             };
         case "CREATE_A_TRANSACTION":
             return {
