@@ -15,18 +15,6 @@ function App() {
 
   return (
     <Router>
-      <nav>
-        <li>
-          <Link to="/welcome">Login</Link>
-        </li>
-        <li>
-          <Link to="/signup">Sign Up</Link>
-        </li>
-        <li>
-          <Link to="/demo">Demo</Link>
-        </li>
-      </nav>
-      <hr />
       <Switch>
         <Route path="/welcome">
           <Login setUser={setUser} />
