@@ -79,7 +79,7 @@ const EditTransaction = ({ bankName, nickName, bankId }) => {
                 <Form.Group controlId="type" as={Form.Row}>
                     <Form.Label column sm={1} >Type</Form.Label>
                     <Col sm={3}>
-                        <Form.Control as="select" defaultValue={editTransaction.type}>
+                        <Form.Control as="select" defaultValue={editTransaction.type} required>
                             <option value="income">Income</option>
                             <option value="expense">Expense</option>
                         </Form.Control >
@@ -91,7 +91,7 @@ const EditTransaction = ({ bankName, nickName, bankId }) => {
                         Category
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control as="select" defaultValue={editTransaction.category}>
+                        <Form.Control as="select" defaultValue={editTransaction.category} required>
                             <optgroup label="Income">
                                 {categoryIncomeOptions.map((income, id) => {
                                     return (
@@ -117,21 +117,21 @@ const EditTransaction = ({ bankName, nickName, bankId }) => {
                 <Form.Group controlId="date" as={Form.Row} >
                     <Form.Label column sm={1} >Date</Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="date" placeholder="Date of Transaction" defaultValue={editTransaction.date} />
+                        <Form.Control name="date" placeholder="Date of Transaction" defaultValue={editTransaction.date} required />
                     </Col>
                 </Form.Group>
 
                 <Form.Group controlId="amount" as={Form.Row}>
                     <Form.Label column sm={1} >Amount:</Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="amount" placeholder="Amount" defaultValue={editTransaction.amount.$numberDecimal} />
+                        <Form.Control name="amount" placeholder="Amount" defaultValue={editTransaction.amount.$numberDecimal} type="number" step="0.01" required />
                     </Col>
                 </Form.Group>
 
                 <Form.Group controlId="description" as={Form.Row}>
                     <Form.Label column sm={1} >Description</Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="description" placeholder="Amount" defaultValue={editTransaction.description} />
+                        <Form.Control name="description" placeholder="description" defaultValue={editTransaction.description} />
                     </Col>
                 </Form.Group>
 

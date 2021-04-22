@@ -16,11 +16,11 @@ sessions.post("/", (req, res) => {
     User.findOne({ username: req.body.username }, (err, foundUser) => {
         if (err) {
             console.log(err);
-            res.send({ msg: "Problem with database" });
+            res.send({ msg: "Problem with database", error: true });
             // foundUser is undefined/null
         } else if (!foundUser) {
-            console.log("User could not be found");
-            res.send({ msg: "User could not be found" });
+            // console.log("User could not be found");
+            res.send({ msg: "Invalid user. Please sign up as an user.", error: true });
             // User is found, now check if password matches
         } else {
             // Password matches
@@ -29,8 +29,8 @@ sessions.post("/", (req, res) => {
                 res.send(foundUser);
                 // Password does not match
             } else {
-                console.log("You entered an incorrect password");
-                res.send({ msg: "You entered an incorrect password" });
+                // console.log("You entered an incorrect password");
+                res.send({ msg: "You entered an incorrect password", error: true });
             }
         }
     });
@@ -39,7 +39,7 @@ sessions.post("/", (req, res) => {
 // When user logs out
 sessions.delete("/", (req, res) => {
     req.session.destroy(() => {
-        console.log("You have logged out successfully");
+        // console.log("You have logged out successfully");
         res.send({ msg: "You have logged out successfully" });
     });
 });
