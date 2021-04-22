@@ -9,7 +9,7 @@ import NewTransaction from "../Components/NewTransaction"
 
 const CreateTransactionPage = () => {
 
-    const { bankName, nickName, id } = useParams();
+    const { bankName, nickName, bankId } = useParams();
 
     return (
       <div>
@@ -19,7 +19,7 @@ const CreateTransactionPage = () => {
             <Sidebar />
             <Layout style={{ padding: "0 24px 24px" }}>
               <Path />
-              <NewTransaction bankName={bankName} nickName={nickName} id={id} />
+              <NewTransaction bankName={bankName} nickName={nickName} bankId={bankId} />
             </Layout>
           </Layout>
         </Layout>

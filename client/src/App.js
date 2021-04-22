@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
-import { useState } from "react"
+import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp'
 import MainPage from "./Pages/MainPage";
 import CreateBankPage from "./Pages/CreateBankPage";
 import ShowBankPage from "./Pages/ShowBankPage";
-import NewTransaction from "./Components/NewTransaction";
-import EditTransaction from "./Components/EditTransaction";
 import CreateTransactionPage from "./Pages/CreateTransactionPage";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import EditTransactionPage from "./Pages/EditTransactionPage";
 
 function App() {
 
@@ -16,18 +16,6 @@ function App() {
 
   return (
     <Router>
-      <nav>
-        <li>
-          <Link to="/welcome">Login</Link>
-        </li>
-        <li>
-          <Link to="/signup">Sign Up</Link>
-        </li>
-        <li>
-          <Link to="/demo">Demo</Link>
-        </li>
-      </nav>
-      <hr />
       <Switch>
         <Route path="/welcome">
           <Login setUser={setUser} />
@@ -35,20 +23,24 @@ function App() {
         <Route path="/signup">
           <SignUp />
         </Route>
-        <Route path="/demo"></Route>
-        <Route path="/create-bank">
+        <Route path="/" exact>
+          <Redirect to="/welcome" />
+        </Route>
+        <ProtectedRoute path="/create-bank">
           <CreateBankPage />
-        </Route>
-        <Route path="/main/:bankName/:nickName/:id/create-transaction">
+        </ProtectedRoute>
+        <ProtectedRoute path="/main/:bankName/:nickName/:bankId/create-transaction">
           <CreateTransactionPage />
-        </Route>
-        <Route path="/main/:bankName/:nickName">
+        </ProtectedRoute>
+        <ProtectedRoute path="/main/:bankName/:nickName/:bankId/edit-transaction">
+          <EditTransactionPage />
+        </ProtectedRoute>
+        <ProtectedRoute path="/main/:bankName/:nickName">
           <ShowBankPage />
-        </Route>
-        <Route path="/main">
+        </ProtectedRoute>
+        <ProtectedRoute path="/main">
           <MainPage />
-        </Route>
-
+        </ProtectedRoute>
       </Switch>
     </Router>
   );

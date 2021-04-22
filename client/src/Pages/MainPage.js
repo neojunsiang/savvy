@@ -12,9 +12,7 @@ import Start from '../Components/Start';
 // const { Header, Content, Sider } = Layout;
 
 const MainPage = () => {
-  const [{ allAccounts, loginUser }, dispatch] = useStateValue();
-  // console.log(allAccounts);
-  console.log(loginUser);
+  const [{ allAccounts }, dispatch] = useStateValue();
 
   useEffect(() => {
     fetch("/banks")
@@ -27,7 +25,7 @@ const MainPage = () => {
       console.log(parsedData);
       dispatch({
         type: "READ_ALL_ACCOUNTS",
-        account: parsedData
+        accounts: parsedData
       });
     }, (err) => console.log(err))
   }, []);

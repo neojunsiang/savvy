@@ -28,7 +28,7 @@ const Start = ({ allAccounts }) => {
           </Link><br/>
           <h4>Your Accounts:</h4>
           {allAccounts.length > 0 
-            ? allAccounts.map(account => <Link key={account._id} to={{pathname: `/main/${account.bankName}/${account.nickName}`}}><p>{account.bankName} / {account.nickName}</p></Link>) 
+            ? allAccounts.map(account => <Link key={account._id} to={{pathname: `/main/${account.bankName}/${account.nickName}`}}><p key={account._id}>{account.bankName} / {account.nickName}</p></Link>) 
             : <Empty description={<span>You have no accounts</span>}/>}
         </div>
       </Content>
