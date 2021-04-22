@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
-import { useState } from "react"
+import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp'
@@ -9,6 +9,7 @@ import ShowBankPage from "./Pages/ShowBankPage";
 import NewTransaction from "./Components/NewTransaction";
 import EditTransaction from "./Components/EditTransaction";
 import CreateTransactionPage from "./Pages/CreateTransactionPage";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
 
@@ -36,19 +37,18 @@ function App() {
           <SignUp />
         </Route>
         <Route path="/demo"></Route>
-        <Route path="/create-bank">
+        <ProtectedRoute path="/create-bank">
           <CreateBankPage />
-        </Route>
-        <Route path="/main/:bankName/:nickName/:bankId/create-transaction">
+        </ProtectedRoute>
+        <ProtectedRoute path="/main/:bankName/:nickName/:bankId/create-transaction">
           <CreateTransactionPage />
-        </Route>
-        <Route path="/main/:bankName/:nickName">
+        </ProtectedRoute>
+        <ProtectedRoute path="/main/:bankName/:nickName">
           <ShowBankPage />
-        </Route>
-        <Route path="/main">
+        </ProtectedRoute>
+        <ProtectedRoute path="/main">
           <MainPage />
-        </Route>
-
+        </ProtectedRoute>
       </Switch>
     </Router>
   );

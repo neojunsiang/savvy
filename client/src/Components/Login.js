@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
 import { useHistory } from 'react-router';
 import { useStateValue } from "./StateProvider";
+import { Redirect } from "react-router-dom";
 
 const Login = ({ setUser }) => {
     const [{ loginUser }, dispatch] = useStateValue();
@@ -34,6 +35,7 @@ const Login = ({ setUser }) => {
                       user: resJson.username,
                     });
                     history.push("/main");
+                    // return (<Redirect to="/main" />)
                 }
             })
             .catch(error => console.error({ Error: error }))

@@ -8,6 +8,7 @@ const { Header } = Layout;
 
 const Navbar = () => {
   const [{ loginUser }, dispatch ] = useStateValue();
+  console.log(typeof loginUser);
   const history = useHistory();
 
   const handleLogout = () => {
