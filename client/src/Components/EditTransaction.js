@@ -124,14 +124,14 @@ const EditTransaction = ({ bankName, nickName, bankId }) => {
                 <Form.Group controlId="amount" as={Form.Row}>
                     <Form.Label column sm={1} >Amount:</Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="amount" placeholder="Amount" defaultValue={editTransaction.amount.$numberDecimal} required />
+                        <Form.Control name="amount" placeholder="Amount" defaultValue={editTransaction.amount.$numberDecimal} type="number" step="0.01" required />
                     </Col>
                 </Form.Group>
 
                 <Form.Group controlId="description" as={Form.Row}>
                     <Form.Label column sm={1} >Description</Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="description" placeholder="Amount" defaultValue={editTransaction.description} />
+                        <Form.Control name="description" placeholder="description" defaultValue={editTransaction.description} />
                     </Col>
                 </Form.Group>
 
