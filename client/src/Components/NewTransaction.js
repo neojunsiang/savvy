@@ -83,32 +83,6 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         </Form.Control>
                     </Col>
                 </Form.Group>
-                {/* 
-                <Form.Group controlId="category" as={Form.Row}>
-                    <Form.Label column sm={1} >Category</Form.Label>
-                    <Col sm={3}>
-                        <Form.Control as="select"  >
-                            <optgroup label="Income">
-                                <option value="salary">Salary</option>
-                                <option value="others">Other</option>
-                            </optgroup>
-                            <optgroup label="Expense">
-                                <option value="food">Food</option>
-                                <option value="entertainment">Entertainment</option>
-                                <option value="transportation">Transportation</option>
-                                <option value="groceries">Groceries</option>
-                                <option value="housing">Housing</option>
-                                <option value="clothing">Clothing</option>
-                                <option value="utilities">Utilities</option>
-                                <option value="health">Health</option>
-                                <option value="education">Education</option>
-                                <option value="insurance">Insurance</option>
-                                <option value="investments">Investments</option>
-                                <option value="others">Others</option>
-                            </optgroup>
-                        </Form.Control >
-                    </Col>
-                </Form.Group> */}
 
                 <Form.Group controlId="category" as={Form.Row}>
                     <Form.Label column sm={1}>

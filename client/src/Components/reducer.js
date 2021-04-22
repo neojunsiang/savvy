@@ -1,7 +1,8 @@
 export const initialState = {
     allAccounts: [],
     allTransactions: [],
-    loginUser: ""
+    loginUser: "",
+    editTransaction: []
 };
 
 const reducer = (state, action) => {
@@ -9,8 +10,8 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "UPON_USER_LOGIN":
             return {
-              ...state,
-              loginUser: action.user
+                ...state,
+                loginUser: action.user
             };
         case "CREATE_AN_ACCOUNT":
             return {
@@ -24,8 +25,8 @@ const reducer = (state, action) => {
             };
         case "READ_ALL_ACCOUNTS":
             return {
-              ...state,
-              allAccounts: action.accounts
+                ...state,
+                allAccounts: action.accounts
             };
         case "READ_ALL_TRANSACTIONS":
             return {
@@ -44,6 +45,16 @@ const reducer = (state, action) => {
                 ...state,
                 allTransactions: newTransactions
             };
+        case "READ_AN_EDIT_TRANSACTION":
+            return {
+                ...state,
+                editTransaction: action.editTransaction
+            }
+        case "EDIT_A_TRANSACTION":
+            return {
+                ...state,
+                allTransactions: [...state.allTransactions, action.editTransaction]
+            }
         default:
             return state;
     }
