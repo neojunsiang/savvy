@@ -23,7 +23,9 @@ function App() {
         <Route path="/signup">
           <SignUp />
         </Route>
-        <Route path="/demo"></Route>
+        <Route path="/" exact>
+          <Redirect to="/welcome" />
+        </Route>
         <ProtectedRoute path="/create-bank">
           <CreateBankPage />
         </ProtectedRoute>

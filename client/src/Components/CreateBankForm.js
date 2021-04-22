@@ -44,8 +44,10 @@ const CreateBankForm = () => {
           account: {
             bankName: values.bankName,
             nickName: values.nickName,
+            // startingBalance: values.balance
+            // endingBalance: values.balance
             balance: values.balance,
-            bankId: resjson._id
+            bankId: resjson._id,
           },
         });
       })

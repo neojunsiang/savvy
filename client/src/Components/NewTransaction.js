@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router';
 import { useStateValue } from './StateProvider';
 
 const NewTransaction = ({ bankName, nickName, bankId }) => {
-    const [{ allTransactions }, dispatch] = useStateValue();
+    const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
     const history = useHistory();
 
     const bankSummaryLink = `/main/${bankName}/${nickName}`;
@@ -30,42 +30,56 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         { value: "others", label: "Others" },
     ];
 
+    const checkBankBalance = () => {
+        const bankIndex = allAccounts.findIndex(account => account._id === bankId);
+        // reference to endingBalance
+        return allAccounts[bankIndex].balance.$numberDecimal;
+    }
+
+    console.log(checkBankBalance());
+
     const handleCreate = (event) => {
-        event.preventDefault();
-        const newTransaction = {
-            type: event.target.type.value,
-            category: event.target.category.value,
-            amount: event.target.amount.value,
-            description: event.target.description.value,
-            date: event.target.date.value,
-            bankId: bankId,
-        };
-        console.log("new", newTransaction);
+      event.preventDefault();
+      const newTransaction = {
+        type: event.target.type.value,
+        category: event.target.category.value,
+        amount: event.target.amount.value,
+        description: event.target.description.value,
+        date: event.target.date.value,
+        bankId: bankId,
+      };
+      console.log("new", newTransaction);
+      // do a conditional check if event.target.amount.value > bank
+      if (event.target.amount.value > checkBankBalance() && event.target.type.value === "expense") {
+          alert("You cannot spend more than your bank balance.")
+      } else {
         fetch("/transactions", {
-            method: "POST",
-            body: JSON.stringify(newTransaction),
-            headers: {
-                "Content-Type": "application/json",
-            },
+          method: "POST",
+          body: JSON.stringify(newTransaction),
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-            .then((res) => res.json())
-            .then((resJson) => {
-                console.log("resJson", resJson);
-                dispatch({
-                    type: "CREATE_A_TRANSACTION",
-                    transaction: {
-                        type: event.target.type.value,
-                        category: event.target.category.value,
-                        amount: event.target.amount.value,
-                        description: event.target.description.value,
-                        date: event.target.date.value,
-                        bankId: bankId,
-                        transactionId: resJson._id
-                    },
-                });
-                history.push(bankSummaryLink);
-            })
-            .catch((error) => console.error({ Error: error }));
+          .then((res) => res.json())
+          .then((resJson) => {
+            console.log("resJson", resJson);
+            dispatch({
+              type: "CREATE_A_TRANSACTION",
+              transaction: {
+                type: event.target.type.value,
+                category: event.target.category.value,
+                amount: event.target.amount.value,
+                description: event.target.description.value,
+                date: event.target.date.value,
+                bankId: bankId,
+                transactionId: resJson._id,
+              },
+            });
+            history.push(bankSummaryLink);
+          })
+          .catch((error) => console.error({ Error: error }));
+      }
+        
     };
 
     return (
