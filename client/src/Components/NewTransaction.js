@@ -6,10 +6,8 @@ import { DatePicker, Space } from 'antd';
 import { useHistory, useParams } from 'react-router';
 import { useStateValue } from './StateProvider';
 
-
-
 const NewTransaction = ({ bankName, nickName, bankId }) => {
-    const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
+    const [{ tempEndingBalance }, dispatch] = useStateValue();
     const history = useHistory();
 
     const bankSummaryLink = `/main/${bankName}/${nickName}`;
@@ -33,14 +31,6 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         { value: "others", label: "Others" },
     ];
 
-    const checkBankBalance = () => {
-        const bankIndex = allAccounts.findIndex(account => account._id === bankId);
-        // reference to endingBalance
-        return allAccounts[bankIndex].balance.$numberDecimal;
-        // console.log(typeof allAccounts[bankIndex].balance.$numberDecimal);
-    }
-
-
     const handleCreate = (event) => {
       event.preventDefault();
       const newTransaction = {
@@ -52,9 +42,8 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         bankId: bankId,
       };
       console.log("new", newTransaction);
-      // do a conditional check if event.target.amount.value > bank
-      if (parseInt(event.target.amount.value) > parseInt(checkBankBalance()) && event.target.type.value === "expense") {
-          alert("You cannot spend more than your bank balance.")
+      if (parseFloat(event.target.amount.value) > tempEndingBalance && event.target.type.value === "expense") {
+          alert("You cannot spend more than your current bank balance of $" + tempEndingBalance + ".");
       } else {
         fetch("/transactions", {
           method: "POST",

@@ -18,7 +18,7 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
     // const accountBalance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance;
     const createTransactionLink = `/main/${bankName}/${nickName}/${bankId}/create-transaction`;
     const EditTransactionPage = `/main/${bankName}/${nickName}/${bankId}/edit-transaction`;
-
+    
     const totalSum = (allTransactions, transactionType) => {
         let sum = 0;
         for (let i = 0; i < allTransactions.length; i++) {
@@ -28,8 +28,19 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
             }
             // console.log("sum", sum);
         }
-        return sum
+        return sum;
     }
+    let startingBalance = parseFloat(balance).toFixed(2);
+    let income = totalSum(allTransactions, "income").toFixed(2);
+    let expenses = totalSum(allTransactions, "expense").toFixed(2);
+    let endingBalance = (parseFloat(balance) + totalSum(allTransactions, "income") - totalSum(allTransactions, "expense")).toFixed(2);
+
+    const handleClick = () => {
+      dispatch({
+        type: "CLICK_CREATE_A_TRANSACTION_BUTTON",
+        tempEndingBalance: parseFloat(endingBalance)
+      });
+    };
 
     return (
         <Content
@@ -42,18 +53,19 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
         >
             <div className="bank__summary">
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Starting Balance" /><br />${(parseFloat(balance)).toFixed(2)}
+                    <Meta title="Starting Balance" /><br />${startingBalance}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Income" /><br />${(totalSum(allTransactions, "income")).toFixed(2)}
+                    <Meta title="Income" /><br />${income}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Expenses" /><br />${(totalSum(allTransactions, "expense")).toFixed(2)}
+                    <Meta title="Expenses" /><br />${expenses}
                 </Card>
                 <Card style={{ width: 240, borderColor: "#d1d1d1", borderRadius: "5px", fontSize: "20px" }}>
-                    <Meta title="Ending Balance" /><br />${(parseFloat(balance) + totalSum(allTransactions, "income") - totalSum(allTransactions, "expense")).toFixed(2)}
+                    <Meta title="Ending Balance" /><br />${endingBalance}
                 </Card>
-                <Link to={createTransactionLink}><Button style={{ top: "39%" }} type="primary" shape="round" icon={<PlusOutlined style={{ fontSize: "18px" }} />} /></Link>
+
+                <Link to={createTransactionLink}><Button onClick={handleClick} style={{ top: "39%" }} type="primary" shape="round" icon={<PlusOutlined style={{ fontSize: "18px" }} /></Link>
             </div>
             <br />
             <div>
