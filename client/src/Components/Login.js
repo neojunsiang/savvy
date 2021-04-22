@@ -57,36 +57,26 @@ const Login = ({ setUser }) => {
                         user: resJson.username,
                     });
                     history.push("/main");
-                    // return (<Redirect to="/main" />)
+                } else {
+                    alert(resJson.msg)
                 }
+                // if (resJson.error) {
+                //     alert(resJson.msg)
+                // } else {
+                //     setUser(values);
+                //     dispatch({
+                //         type: "UPON_USER_LOGIN",
+                //         user: resJson.username,
+                //     });
+                //     history.push("/main");
+                //     // return (<Redirect to="/main" />)
+                // }
             })
             .catch(error => console.error({ Error: error }))
     }
 
     return (
         <>
-            {/* <h1>Welcome to Login</h1>
-            <Form onSubmit={handleLogin}>
-                <Form.Group as={Form.Row} controlId="username">
-                    <Form.Label column sm={1}>Username</Form.Label>
-                    <Col sm={3}>
-                        <Form.Control name="username" placeholder="enter your username" required />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Form.Row} controlId="password">
-                    <Form.Label column sm={1}>Password</Form.Label>
-                    <Col sm={3}>
-                        <Form.Control name="password" placeholder="enter your password" required />
-                    </Col>
-                </Form.Group>
-                <Button type="submit" size="sm" >
-                    Login
-                </Button >
-            </Form>
-            <br />
-            <Link to="/signup"><Button variant="primary" size="sm">Getting Started</Button></Link>
-            <br />
-            <a href="/demo">Not sure how it works? Click here for demo</a> */}
             <NavBar />
             <PageHeader title="Login" />
             <div>
@@ -132,9 +122,9 @@ const Login = ({ setUser }) => {
                 <Link to="/signup" ><Button variant="primary" size="sm" icon={<UserAddOutlined />}>Getting Started?</Button></Link>
             </div>
             <br />
-            <div style={{ marginLeft: "24px", position: "relative" }}>
+            {/* <div style={{ marginLeft: "24px", position: "relative" }}>
                 <Link to="/demo">Not sure how it works? Click here for demo</Link>
-            </div>
+            </div> */}
 
         </>
     )

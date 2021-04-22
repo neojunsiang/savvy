@@ -72,8 +72,8 @@ const TransactionTable = ({ allTransactions, EditTransactionPage }) => {
                 // console.log(record) // show the object
                 // console.log(index) // show the index of the row
                 <Space Space size="middle">
-                    <Link to={EditTransactionPage} onClick={() => handleTransactionEdit(record)}><Button type="primary" shape="round" icon={<EditOutlined />} /></Link>
-                    <Button type="primary" icon={<DeleteOutlined />} shape="round" onClick={() => handleDelete(record.bankId, record._id)} />
+                    <Link to={EditTransactionPage} onClick={() => handleTransactionEdit(record)}><Button type="primary" shape="round" icon={<EditOutlined style={{ fontSize: "18px" }} />} /></Link>
+                    <Button type="primary" icon={<DeleteOutlined style={{ fontSize: "18px" }} />} shape="round" onClick={() => handleDelete(record.bankId, record._id)} />
                 </Space >
             )
         },

@@ -2,11 +2,12 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/esm/Col';
 import Form from 'react-bootstrap/Form'
+import { DatePicker, Space } from 'antd';
 import { useHistory, useParams } from 'react-router';
 import { useStateValue } from './StateProvider';
 
 const NewTransaction = ({ bankName, nickName, bankId }) => {
-    const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
+    const [{ tempEndingBalance }, dispatch] = useStateValue();
     const history = useHistory();
 
     const bankSummaryLink = `/main/${bankName}/${nickName}`;
@@ -30,13 +31,6 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         { value: "others", label: "Others" },
     ];
 
-    const checkBankBalance = () => {
-        const bankIndex = allAccounts.findIndex(account => account._id === bankId);
-        // reference to endingBalance
-        return allAccounts[bankIndex].balance.$numberDecimal;
-        // console.log(typeof allAccounts[bankIndex].balance.$numberDecimal);
-    }
-
     const handleCreate = (event) => {
       event.preventDefault();
       const newTransaction = {
@@ -48,9 +42,8 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
         bankId: bankId,
       };
       console.log("new", newTransaction);
-      // do a conditional check if event.target.amount.value > bank
-      if (parseInt(event.target.amount.value) > parseInt(checkBankBalance()) && event.target.type.value === "expense") {
-          alert("You cannot spend more than your bank balance.")
+      if (parseFloat(event.target.amount.value) > tempEndingBalance && event.target.type.value === "expense") {
+          alert("You cannot spend more than your current bank balance of $" + tempEndingBalance + ".");
       } else {
         fetch("/transactions", {
           method: "POST",
@@ -78,7 +71,6 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
           })
           .catch((error) => console.error({ Error: error }));
       }
-        
     };
 
     return (
@@ -90,7 +82,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Type
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control as="select">
+                        <Form.Control as="select" required>
                             <option value="income">Income</option>
                             <option value="expense">Expense</option>
                         </Form.Control>
@@ -102,7 +94,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Category
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control as="select">
+                        <Form.Control as="select" required>
                             <optgroup label="Income">
                                 {categoryIncomeOptions.map((income, id) => {
                                     return (
@@ -130,7 +122,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Date
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="date" placeholder="Date of Transaction" />
+                        <Form.Control name="date" placeholder="Date of Transaction" required />
                     </Col>
                 </Form.Group>
 
@@ -139,7 +131,7 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                         Amount:
           </Form.Label>
                     <Col sm={3}>
-                        <Form.Control name="amount" placeholder="Amount" />
+                        <Form.Control name="amount" placeholder="Amount" type="number" step="0.01" required />
                     </Col>
                 </Form.Group>
 
@@ -156,6 +148,10 @@ const NewTransaction = ({ bankName, nickName, bankId }) => {
                     Create
         </Button>
             </Form>
+
+
+
+
         </>
     );
 };
