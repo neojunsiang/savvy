@@ -1,7 +1,8 @@
 import { React, useState } from 'react'
 import { useHistory } from 'react-router';
 import "../App.css";
-import { Form, Input, Button, Checkbox } from 'antd';
+import NavBar from "../Components/Navbar"
+import { Form, Input, Button, Checkbox, PageHeader } from 'antd';
 
 const layout = {
     labelCol: {
@@ -17,7 +18,6 @@ const tailLayout = {
         span: 5,
     },
 };
-
 
 const SignUp = () => {
     const history = useHistory()
@@ -40,7 +40,12 @@ const SignUp = () => {
                 // console.log("state message", message);
                 // console.log("state message", message.msg);
                 // console.log("state message", message.status);
-                history.push("/welcome")
+                // history.push("/welcome")
+                if (resJson.error) {
+                    alert(resJson.msg)
+                } else {
+                    history.push("/welcome")
+                }
             })
             .catch(error => console.error({ Error: error }))
 
@@ -48,7 +53,8 @@ const SignUp = () => {
 
     return (
         <>
-            <h1>Register New User</h1>
+            <NavBar />
+            <PageHeader title="Register New User" ></PageHeader>
             <Form
                 {...layout}
                 name="basic"
