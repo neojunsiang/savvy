@@ -6,6 +6,7 @@ import NavBar from "../Components/Navbar"
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router';
 import { useStateValue } from "./StateProvider";
+import { Redirect } from "react-router-dom";
 
 import { Form, Input, Button, PageHeader, } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
@@ -56,6 +57,7 @@ const Login = ({ setUser }) => {
                         user: resJson.username,
                     });
                     history.push("/main");
+                    // return (<Redirect to="/main" />)
                 }
             })
             .catch(error => console.error({ Error: error }))

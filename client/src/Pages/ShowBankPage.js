@@ -11,8 +11,12 @@ import ShowBankSummary from "../Components/ShowBankSummary";
 const ShowBankPage = () => {
   const { bankName, nickName } = useParams();
   console.log(bankName, nickName);
-  const [{ allAccounts, allTransactions }, dispatch] = useStateValue();
-  console.log("catch balance error", allAccounts);
+  const [{ allAccounts, allTransactions, loginUser }, dispatch] = useStateValue();
+
+  console.log("allAccounts", allAccounts);
+  console.log("allTransactions", allTransactions);
+  console.log("loginUser", loginUser);
+
   const balance = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)].balance.$numberDecimal;
   const bankId = allAccounts[allAccounts.findIndex((account) => account.bankName === bankName && account.nickName === nickName)]._id;
   console.log(bankId);
