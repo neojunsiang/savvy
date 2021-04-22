@@ -65,7 +65,7 @@ const ShowBankSummary = ({ bankName, nickName, balance, bankId }) => {
                     <Meta title="Ending Balance" /><br />${endingBalance}
                 </Card>
 
-                <Link to={createTransactionLink}><Button onClick={handleClick} style={{ top: "39%" }} type="primary" shape="round" icon={<PlusOutlined style={{ fontSize: "18px" }} /></Link>
+                <Link to={createTransactionLink}><Button onClick={handleClick} style={{ top: "39%" }} type="primary" shape="round" icon={<PlusOutlined style={{ fontSize: "18px" }}/>} /></Link>
             </div>
             <br />
             <div>
